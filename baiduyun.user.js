@@ -563,25 +563,6 @@
             this.addPageListener();
         },
 
-        addInitButton() {
-            if (!pt) return;
-            if ($('.pl-button-init').length && pan.name !== name) return;
-
-            let $toolWrap;
-            util.setInt('.pl-button');
-            let $button = $(`<span class="g-dropdown-button pointer pl-button-init" style="opacity:.5"><a style="color:#fff;background: ${color};border-color:${color}" class="g-button g-button-blue" href="javascript:;"><span class="g-button-right"><em class="icon icon-download"></em><span class="text" style="width: 60px;">下载助手</span></span></span></a></span>`);
-            if (pt === 'home') $toolWrap = $(pan.btn.home);
-            if (pt === 'main') {
-                $toolWrap = $(pan.btn.main);
-                $button = $(`<a href="javascript:;" class="pl-button-init" style="opacity:.5; display: inline-block; margin-right: 8px;"><button class="u-btn nd-file-list-toolbar-action-item u-btn--primary u-btn--default u-btn--small is-round is-has-icon" style="background: ${color};border-color: ${color}"><i class="iconfont inline-block-v-middle nd-file-list-toolbar__action-item-icon icon-download"></i><span class="inline-block-v-middle nd-file-list-toolbar-action-item-text">下载助手</span></button></a>`);
-            }
-            if (pt === 'share') $toolWrap = $(pan.btn.share);
-            $toolWrap.prepend($button);
-            $button.click(() => {
-                this._initDialog();
-            });
-        },
-
         async getPCSLink() {
             selectList = this.selectedList();
             let fidList = this._getFidList(), url, res;
@@ -843,7 +824,7 @@
             (`https://api.baiduyun.wiki/config?ver=${version}&a=${author}`, {author, pt}, {}, 'text');
             pan = JSON.parse(util.d(res));
             Object.freeze && Object.freeze(pan);
-            pan.num === util.getValue('setting_init_code') || pan.num === util.getValue('scode') ? this.addButton() : this.addInitButton();
+            this.addButton();
         },
 
         async _initDialog() {
